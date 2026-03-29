@@ -2,16 +2,16 @@ import { LiquidMetalBackground } from "@/components/LiquidMetalBackground"
 import { FloatingNavbar } from "@/components/FloatingNavbar"
 import { ShinyButton } from "@/components/ui/shiny-button"
 import { Feature } from "@/components/ui/feature-with-advantages"
-import { BentoPricing } from "@/components/ui/bento-pricing"
+import { RecipeCatalog } from "@/components/ui/recipe-catalog"
 import { ContactCard } from "@/components/ui/contact-card"
 import { AboutQuote } from "@/components/ui/about-quote"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { MailIcon, PhoneIcon, MapPinIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useEffect, useRef } from "react"
+import Icon from "@/components/ui/icon"
 
 export default function Index() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -34,29 +34,18 @@ export default function Index() {
         const isAtTop = pricingSection.scrollTop === 0
         const isAtBottom = pricingSection.scrollTop + pricingSection.clientHeight >= pricingSection.scrollHeight - 1
 
-        if (delta > 0 && !isAtBottom) {
-          return
-        }
-
-        if (delta < 0 && !isAtTop) {
-          return
-        }
+        if (delta > 0 && !isAtBottom) return
+        if (delta < 0 && !isAtTop) return
 
         if (delta < 0 && isAtTop) {
           e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 1 * containerWidth,
-            behavior: "smooth",
-          })
+          scrollContainer.scrollTo({ left: 1 * containerWidth, behavior: "smooth" })
           return
         }
 
         if (delta > 0 && isAtBottom) {
           e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 3 * containerWidth,
-            behavior: "smooth",
-          })
+          scrollContainer.scrollTo({ left: 3 * containerWidth, behavior: "smooth" })
           return
         }
       }
@@ -66,29 +55,18 @@ export default function Index() {
         const isAtTop = aboutSection.scrollTop === 0
         const isAtBottom = aboutSection.scrollTop + aboutSection.clientHeight >= aboutSection.scrollHeight - 1
 
-        if (delta > 0 && !isAtBottom) {
-          return
-        }
-
-        if (delta < 0 && !isAtTop) {
-          return
-        }
+        if (delta > 0 && !isAtBottom) return
+        if (delta < 0 && !isAtTop) return
 
         if (delta < 0 && isAtTop) {
           e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 2 * containerWidth,
-            behavior: "smooth",
-          })
+          scrollContainer.scrollTo({ left: 2 * containerWidth, behavior: "smooth" })
           return
         }
 
         if (delta > 0 && isAtBottom) {
           e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 4 * containerWidth,
-            behavior: "smooth",
-          })
+          scrollContainer.scrollTo({ left: 4 * containerWidth, behavior: "smooth" })
           return
         }
       }
@@ -98,20 +76,12 @@ export default function Index() {
         const isAtTop = contactSection.scrollTop === 0
         const isAtBottom = contactSection.scrollTop + contactSection.clientHeight >= contactSection.scrollHeight - 1
 
-        if (delta > 0 && !isAtBottom) {
-          return
-        }
-
-        if (delta < 0 && !isAtTop) {
-          return
-        }
+        if (delta > 0 && !isAtBottom) return
+        if (delta < 0 && !isAtTop) return
 
         if (delta < 0 && isAtTop) {
           e.preventDefault()
-          scrollContainer.scrollTo({
-            left: 3 * containerWidth,
-            behavior: "smooth",
-          })
+          scrollContainer.scrollTo({ left: 3 * containerWidth, behavior: "smooth" })
           return
         }
 
@@ -131,10 +101,7 @@ export default function Index() {
           targetSection = Math.max(currentSection - 1, 0)
         }
 
-        scrollContainer.scrollTo({
-          left: targetSection * containerWidth,
-          behavior: "smooth",
-        })
+        scrollContainer.scrollTo({ left: targetSection * containerWidth, behavior: "smooth" })
       }
     }
 
@@ -155,33 +122,60 @@ export default function Index() {
         className="relative z-10 flex h-screen w-full overflow-x-auto overflow-y-hidden scroll-smooth snap-x snap-mandatory hide-scrollbar"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
+        {/* HERO */}
         <section id="home" className="flex min-w-full snap-start items-center justify-center px-4 py-20">
           <div className="mx-auto max-w-4xl">
             <div className="text-center px-0 leading-5">
+              <div className="flex justify-center mb-6">
+                <Icon name="ChefHat" size={64} className="text-white/80" />
+              </div>
               <h1 className="mb-8 text-balance text-5xl tracking-tight text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)] md:text-6xl lg:text-8xl">
-                <span className="font-open-sans-custom not-italic">Идея.</span>{" "}
-                <span className="font-serif italic">Промпт.</span>{" "}
-                <span className="font-open-sans-custom not-italic">Результат.</span>
+                <span className="font-open-sans-custom not-italic">Русская.</span>{" "}
+                <span className="font-serif italic">Кухня.</span>{" "}
+                <span className="font-open-sans-custom not-italic">Рецепты.</span>
               </h1>
 
               <p className="mb-8 mx-auto max-w-2xl text-pretty leading-relaxed text-gray-300 [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)] font-thin font-open-sans-custom tracking-wide leading-7 text-xl">
-                дизайнер, разработчик или просто любопытный — возьми идею,{" "}
-                <span className="font-serif italic">опиши</span> её и наблюдай, как она оживает
+                более 300 рецептов — от простого борща до сложных шедевров,{" "}
+                <span className="font-serif italic">пошагово</span> для аэрогриля, мультиварки и плиты
               </p>
 
-              <div className="flex justify-center">
-                <ShinyButton className="px-8 py-3 text-base">начать</ShinyButton>
+              <div className="flex justify-center gap-4 flex-wrap">
+                <ShinyButton
+                  className="px-8 py-3 text-base"
+                  onClick={() => {
+                    const section = document.getElementById("pricing")
+                    section?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" })
+                  }}
+                >
+                  Смотреть рецепты
+                </ShinyButton>
+              </div>
+
+              <div className="mt-12 flex justify-center gap-8 flex-wrap">
+                {[
+                  { icon: "Wind", label: "Аэрогриль" },
+                  { icon: "Flame", label: "Плита" },
+                  { icon: "Cpu", label: "Мультиварка" },
+                ].map((item) => (
+                  <div key={item.label} className="flex flex-col items-center gap-2 text-white/60">
+                    <Icon name={item.icon as "Wind"} size={28} />
+                    <span className="text-xs font-open-sans-custom">{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
+        {/* FEATURES / RECIPE TYPES */}
         <section id="features" className="flex min-w-full snap-start items-center justify-center px-4 py-20">
           <div className="mx-auto max-w-7xl w-full">
             <Feature />
           </div>
         </section>
 
+        {/* CATALOG */}
         <section
           id="pricing"
           ref={pricingSectionRef}
@@ -197,21 +191,10 @@ export default function Index() {
               "opacity-30",
             )}
           />
-
-          <div className="relative z-10 mx-auto w-full max-w-5xl">
-            <div className="mx-auto mb-10 max-w-2xl text-center">
-              <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)] font-open-sans-custom">
-                Тарифы и цены
-              </h1>
-              <p className="text-gray-300 mt-4 text-sm md:text-base font-open-sans-custom [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)]">
-                Выберите подходящий план. От индивидуальных авторов до корпоративных команд — гибкие
-                тарифы для вашего успеха.
-              </p>
-            </div>
-            <BentoPricing />
-          </div>
+          <RecipeCatalog />
         </section>
 
+        {/* ABOUT */}
         <section
           id="about"
           ref={aboutSectionRef}
@@ -231,20 +214,51 @@ export default function Index() {
           <div className="relative z-10 mx-auto w-full max-w-7xl">
             <div className="mx-auto mb-10 max-w-2xl text-center">
               <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)] font-open-sans-custom">
-                О нас
+                О проекте
               </h1>
               <p className="text-gray-300 mt-4 text-sm md:text-base font-open-sans-custom [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)]">
-                Узнайте больше о нашей миссии, видении и ценностях, которые движут нами.
+                Сохраняем традиции русской кухни и делаем их доступными каждому
               </p>
             </div>
             <AboutQuote />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+              {[
+                {
+                  icon: "BookOpen",
+                  title: "300+ рецептов",
+                  desc: "Постоянно пополняемая база — от старинных до современных рецептов",
+                },
+                {
+                  icon: "MapPin",
+                  title: "История каждого блюда",
+                  desc: "Узнайте, из какого региона России пришло каждое блюдо",
+                },
+                {
+                  icon: "Users",
+                  title: "Для всей семьи",
+                  desc: "Простые рецепты для детей и сложные шедевры для праздника",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center text-center p-6 rounded-xl border-2 border-white/10 bg-white/5 backdrop-blur-sm gap-3"
+                >
+                  <Icon name={item.icon as "BookOpen"} size={32} className="text-white/70" />
+                  <h3 className="text-white font-semibold font-open-sans-custom">{item.title}</h3>
+                  <p className="text-gray-400 text-sm font-open-sans-custom">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
+        {/* CONTACT */}
         <section
           id="contact"
           ref={contactSectionRef}
-          className="relative min-w-full snap-start overflow-y-auto px-4 pt-24 pb-20"
+          className="relative min-w-full snap-start overflow-y-auto px-4 pt-24 pb-20 hide-scrollbar"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <div
             aria-hidden="true"
@@ -256,68 +270,71 @@ export default function Index() {
             )}
           />
 
-          <div className="relative z-10 mx-auto w-full max-w-5xl mt-[5vh]">
+          <div className="relative z-10 mx-auto w-full max-w-5xl">
+            <div className="mx-auto mb-10 max-w-2xl text-center">
+              <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl text-white [text-shadow:_0_4px_20px_rgb(0_0_0_/_60%)] font-open-sans-custom">
+                Предложить рецепт
+              </h1>
+              <p className="text-gray-300 mt-4 text-sm md:text-base font-open-sans-custom [text-shadow:_0_2px_10px_rgb(0_0_0_/_50%)]">
+                Знаете интересный рецепт русской кухни? Поделитесь — мы добавим его в каталог!
+              </p>
+            </div>
+
             <ContactCard
-              title="Свяжитесь с нами"
-              description="Если у вас есть вопросы о наших услугах или нужна помощь, заполните форму. Мы стараемся отвечать в течение 1 рабочего дня."
+              title="Поделитесь рецептом"
+              description="Если вы знаете уникальный рецепт — семейный, региональный или старинный — напишите нам. Мы рассмотрим его и добавим в коллекцию с указанием автора."
               contactInfo={[
                 {
-                  icon: MailIcon,
-                  label: "Почта",
-                  value: "hello@promptcraft.dev",
+                  icon: () => <Icon name="Mail" size={20} />,
+                  label: "Email",
+                  value: "recipes@russkaya-kuhnya.ru",
                 },
                 {
-                  icon: PhoneIcon,
-                  label: "Телефон",
-                  value: "+7 (495) 123-45-67",
+                  icon: () => <Icon name="MapPin" size={20} />,
+                  label: "Мы из",
+                  value: "Россия",
                 },
                 {
-                  icon: MapPinIcon,
-                  label: "Адрес",
-                  value: "Москва, Россия",
-                  className: "col-span-2",
+                  icon: () => <Icon name="ChefHat" size={20} />,
+                  label: "Рецептов в базе",
+                  value: "300+ и растём",
                 },
               ]}
             >
-              <form action="" className="w-full space-y-4">
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Имя
+              <form className="flex flex-col gap-4 w-full">
+                <div className="grid gap-1">
+                  <Label htmlFor="name" className="text-white font-open-sans-custom text-sm">
+                    Ваше имя
                   </Label>
                   <Input
-                    type="text"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
+                    id="name"
+                    placeholder="Иван Иванов"
+                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-500 font-open-sans-custom"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Email
+                <div className="grid gap-1">
+                  <Label htmlFor="recipe" className="text-white font-open-sans-custom text-sm">
+                    Название блюда
                   </Label>
                   <Input
-                    type="email"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
+                    id="recipe"
+                    placeholder="Бабушкины пироги..."
+                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-500 font-open-sans-custom"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Телефон
+                <div className="grid gap-1">
+                  <Label htmlFor="message" className="text-white font-open-sans-custom text-sm">
+                    Рецепт
                   </Label>
-                  <Input
-                    type="tel"
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]"
+                  <Textarea
+                    id="message"
+                    placeholder="Опишите ингредиенты и шаги приготовления..."
+                    className="bg-white/5 border-white/20 text-white placeholder:text-gray-500 font-open-sans-custom resize-none"
+                    rows={4}
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label className="text-white [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)] font-open-sans-custom">
-                    Сообщение
-                  </Label>
-                  <Textarea className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 [text-shadow:_0_2px_6px_rgb(0_0_0_/_40%)]" />
-                </div>
-                <Button
-                  className="w-full bg-white text-black hover:bg-gray-100 [text-shadow:_0_1px_2px_rgb(0_0_0_/_10%)] font-open-sans-custom"
-                  type="button"
-                >
-                  Отправить
+                <Button className="bg-white text-black hover:bg-gray-100 font-open-sans-custom">
+                  Отправить рецепт
                 </Button>
               </form>
             </ContactCard>
