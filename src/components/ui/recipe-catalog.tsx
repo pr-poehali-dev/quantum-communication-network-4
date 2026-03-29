@@ -345,16 +345,22 @@ function RecipeModal({ recipe, onClose }: RecipeModalProps) {
   )
 }
 
+const PAGE_SIZE = 6
+
 export function RecipeCatalog() {
   const [activeDifficulty, setActiveDifficulty] = useState("Все")
   const [activeMethod, setActiveMethod] = useState("Все")
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   const filtered = recipes.filter((r) => {
     const diffOk = activeDifficulty === "Все" || r.difficulty === activeDifficulty
     const methodOk = activeMethod === "Все" || r.method === activeMethod
     return diffOk && methodOk
   })
+
+  const visible = filtered.slice(0, visibleCount)
+  const hasMore = visibleCount < filtered.length
 
   return (
     <div className="relative z-10 mx-auto w-full max-w-6xl">
@@ -376,7 +382,7 @@ export function RecipeCatalog() {
           {difficulties.map((d) => (
             <button
               key={d}
-              onClick={() => setActiveDifficulty(d)}
+              onClick={() => { setActiveDifficulty(d); setVisibleCount(PAGE_SIZE) }}
               className={cn(
                 "px-3 py-1.5 rounded-full text-sm font-open-sans-custom border transition-all",
                 activeDifficulty === d
@@ -392,7 +398,7 @@ export function RecipeCatalog() {
           {methods.map((m) => (
             <button
               key={m}
-              onClick={() => setActiveMethod(m)}
+              onClick={() => { setActiveMethod(m); setVisibleCount(PAGE_SIZE) }}
               className={cn(
                 "px-3 py-1.5 rounded-full text-sm font-open-sans-custom border transition-all",
                 activeMethod === m
@@ -407,7 +413,7 @@ export function RecipeCatalog() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((recipe) => (
+        {visible.map((recipe) => (
           <div
             key={recipe.id}
             onClick={() => setSelectedRecipe(recipe)}
@@ -448,11 +454,16 @@ export function RecipeCatalog() {
 
       <div className="text-center mt-8">
         <p className="text-gray-400 text-sm font-open-sans-custom">
-          Показано {filtered.length} рецептов · Полный каталог включает 300+ рецептов
+          Показано {visible.length} из {filtered.length} рецептов
         </p>
-        <Button className="mt-4 bg-white/10 text-white border border-white/20 hover:bg-white/20 font-open-sans-custom">
-          Загрузить ещё рецепты
-        </Button>
+        {hasMore && (
+          <Button
+            onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+            className="mt-4 bg-white/10 text-white border border-white/20 hover:bg-white/20 font-open-sans-custom"
+          >
+            Загрузить ещё рецепты
+          </Button>
+        )}
       </div>
     </div>
   )
